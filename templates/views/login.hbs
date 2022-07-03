@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>head_links}}
+
+<body>
+    {{>navbar}}
+    <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsIUuXBTnhTm24HWLK9rHvJ5dkZMElOSUFag&usqp=CAU"
+                    alt="avatar" class="rounded-circle img-responsive">
+            </div>
+            <div class="modal-body text-center mb-1">
+                <h5 class="mt-1 mb-2">Welcome</h5>
+                <hr>
+                <form action="/checkUser" method="POST" onsubmit="sendData()">
+                    <div class="form-floating mb-2">
+                        <label class="visually-hidden" for="inlineFormInputGroupUsername">Email</label>
+                        <div class="input-group">
+                            <div class="input-group-text">@</div>
+                            <input type="text" name="email" class="form-control" id="inlineFormInputGroupUsername"
+                                placeholder="email" required>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <label class="visually-hidden" for="inlineFormInputGroupUsername">Password</label>
+                        <div class="input-group">
+                            <div class="input-group-text">#</div>
+                            <input type="password" name="password" class="form-control"
+                                id="inlineFormInputGroupUsername" placeholder="Password" required>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-3">
+                        <button type="submit" class="btn btn-light" id="inlineFormInputGroupUsername">Signup</button>
+
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="../../public/js/inputHandler.js"></script>
+
+</html>

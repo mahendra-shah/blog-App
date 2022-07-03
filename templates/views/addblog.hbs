@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  {{>head_links}}
+</head>
+
+<body>
+  {{>navbar}}
+  <form action="/addpost" method="POST" >
+    <div class="top-20 start-50 translate-middle-x mx-auto p-5 m-5">
+      <!-- Name input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form4Example1">Title</label> <br>
+        <input type="text" name="title" id="form4Example1" class="form-control" />
+      </div>
+
+      <!-- Message input -->
+      <div class="form-outline mb-4">
+        <label class="form-label" for="form4Example3">Content</label> <br>
+        <textarea class="form-control" name="content" id="form4Example3" rows="4"></textarea>
+      </div>
+
+      <!-- Submit button -->
+      <button type="submit" class="btn btn-primary btn-block mb-4">Post</button>
+    </div>
+  </form>
+</body>
+
+</html>
