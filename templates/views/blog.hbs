@@ -3,13 +3,23 @@
 
 <head>
     {{>head_links}}
+    <link rel="stylesheet" href="css/float.css">
 </head>
 
-<body>
+<body style="background-image: url('https://gdj-inr5u0ip5pewom.stackpathdns.com/wp-content/uploads/2012/08/minimal-background-pattern-wordpress-22.jpg');">
     {{>navbar}}
-    <section class="position-absolute top-20 start-50 translate-middle-x mx-auto p-5">
+
+    <a href="/addblog" class="float mb-5">
+    <i class="fa fa-plus my-float">Blog +   </i>
+        </a>
+
+    <section
+        class="position-absolute m-5 top-40 start-50 translate-middle-x mx-auto p-5 row d-flex justify-content-center">
         {{!-- all data will come from here --}}
+
     </section>
+    {{>footer}}
+
 </body>
 <script src="/js/inputHandler.js"></script>
 

@@ -3,9 +3,12 @@ const app = express()
 require('dotenv').config({ path: '../.env' })
 const hbs = require('hbs')
 const path = require('path')
-const knex = require('../config/db_connections')
 const { genToken, verToken } = require('../auth/jwt_auth')
-const port = process.env.PORT || 4040
+const {PrismaClient} = require('@prisma/client')
+const upload = require('../modules/multer')
+const cloudinary = require('../modules/cloudinary')
+const prisma = new PrismaClient
+const port = 4040
 
 app.use(express.json())
 
@@ -24,7 +27,6 @@ hbs.registerPartials(partials_path)
 app.get('/signup', (req, res) => {
     res.render('signup')
 })
-// ------ save signup data
 app.post('/getData', async (req, res) => {
     try {
         const { name, email, password } = req.body
@@ -33,12 +35,10 @@ app.post('/getData', async (req, res) => {
                 status: "error", msg: "please fill all the inputs"
             })
         }
-        await knex('users').insert({ name, email, password })
-        // res.status(201).json({
-        //     status:'created', msg:'User registered successfully'
-        // })
+        await prisma.users.create({
+            data:{name, email, password}
+        })
         res.redirect("/login")
-
     } catch (error) {
         res.status(500).json({
             status: 'failed', error: error.message
@@ -51,8 +51,6 @@ app.post('/getData', async (req, res) => {
 app.get('/login', (req, res) => {
     res.render('login')
 })
-
-// ------------ check user
 app.post('/checkUser', async (req, res) => {
     const { email, password } = req.body
     try {
@@ -61,11 +59,14 @@ app.post('/checkUser', async (req, res) => {
                 status: 'error', msg: "please fill all the inputs"
             })
         }
-        const user = await knex('users').where({ email, password })
-        const token = genToken(user[0])
+        const user = await prisma.users.findUnique({
+            where:{
+                email
+            }
+        })
+        const token = genToken(user)
         res.cookie('userCookie', token)
-        // res.redirect("/blogs")
-        res.send('hjfkdsjf')
+        res.redirect("/blogs")
 
     } catch (error) {
         res.status(500).json({
@@ -76,13 +77,13 @@ app.post('/checkUser', async (req, res) => {
 //////////////////////////
 
 // blog posts
-app.get("/blogs", (req, res) => {
+app.get("/blogs", verToken, (req, res) => {
     res.render("blog")
 })
 
 // all blog data
-app.get("/data", async (req, res) => {
-    const data = await knex("blogData")
+app.get("/dataofallblogs", verToken, async (req, res) => {
+    const data =  await prisma.blogs.findMany()
     res.send(data)
 })
 
@@ -94,23 +95,37 @@ app.get('/', (req, res) => {
 })
 ///////////////////////////////
 
-// blog route
-app.get('/addblog', (req, res) => {
+// blog route write blog
+app.get('/addblog', verToken,(req, res) => {
     res.render('addblog')
 })
-
-// write blog
-app.post('/addpost', verToken, async (req, res) => {
-    // console.log(req.userData);
-    const blogerID = req.userData[0].id
+app.post('/addpost', verToken, upload.single('image'), async (req, res) => {
+    const userId = parseInt(req.userData.id)
+    const img = await cloudinary.uploader.upload(req.file.path)
+    const image = img.secure_url
     const { title, content } = req.body
-    await knex('blogData').insert({ blogerID, title, content })
+
+    await prisma.blogs.create({
+        data:{
+            userId, title, content, image
+        }
+    })
     res.redirect("/blogs")
-    res.send('blog posted')
 
 })
 
+// profile
+app.get('/profile', verToken, async(req, res)=>{
+    res.render('profile')
+})
+
+// 404 page
+app.get("*", (req, res) => {
+    res.render("404", {
+        errorMsg: 'Opps! Page Not Found'
+    });
+});
 
 app.listen(port, () => {
-    console.log('Connected', port);
+    console.log('Connected to', port);
 })

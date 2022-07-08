@@ -5,26 +5,54 @@
   {{>head_links}}
 </head>
 
-<body>
+<body
+  style="background: url('https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1600') no-repeat; background-size: 100%;">
   {{>navbar}}
-  <form action="/addpost" method="POST" >
-    <div class="top-20 start-50 translate-middle-x mx-auto p-5 m-5">
-      <!-- Name input -->
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form4Example1">Title</label> <br>
-        <input type="text" name="title" id="form4Example1" class="form-control" />
+  {{!-- --}}
+  <div class="modal-dialog" style="margin-top: 10rem !important">
+    <div class="modal-content" style="background-color: rgba(245, 245, 245, 0.5);">
+      <div class="modal-header justify-content-center">
+        <img src="https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png" alt="avatar"
+          class="rounded-circle img-responsive" style="width: 10rem;">
       </div>
-
-      <!-- Message input -->
-      <div class="form-outline mb-4">
-        <label class="form-label" for="form4Example3">Content</label> <br>
-        <textarea class="form-control" name="content" id="form4Example3" rows="4"></textarea>
+      <div class="modal-heading ">
+        <h2 class="text-center mt-3">Write Blog</h2>
       </div>
+      <hr />
+      <div class="modal-body">
+        <form action="/addpost" method="POST" enctype="multipart/form-data">
+          <div class="input-group pb-3">
+            <label for="">Title</label>
+            <div class="input-group">
+              <input type="text" name="title" class="form-control" id="inlineFormInputGroupUsername"
+                placeholder="Blog title" autofocus required>
+            </div>
+          </div>
+          <div class="input-group pb-3">
+            <label for="">Content</label>
+            <div class="input-group">
+              <textarea type="text" name="content" class="form-control" id="inlineFormInputGroupUsername"
+                placeholder="Blog content" required></textarea>
+            </div>
+          </div>
+          <div class="">
+            <label for="">Image</label>
+            <div class="">
+              <input type="file" name="image" class="form-control mb-3" id="inlineFormInputGroupUsername" required>
+            </div>
+          </div>
 
-      <!-- Submit button -->
-      <button type="submit" class="btn btn-primary btn-block mb-4">Post</button>
+          <div class="form-group text-center">
+            <button type="submit" class="btn btn-success">Post</button>
+          </div>
+
+        </form>
+      </div>
     </div>
-  </form>
+  </div>
+
+  {{>footer}}
+
 </body>
 
 </html>

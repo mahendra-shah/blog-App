@@ -1,4 +1,6 @@
-const knex = require("knex");
+// const knex = require("knex");
+const {PrismaClient} = require('@prisma/client')
+const prisma = new PrismaClient
 const jwt = require("jsonwebtoken");
 
 const genToken = ({ id }) => {
@@ -9,11 +11,15 @@ const verToken = async (req, res, next) => {
     if (req.headers.cookie) {
         const token = (req.headers.cookie).split("=")[1];
         const id = jwt.verify(token, "ajsf#Fhu647%8%9gf%yuvcgjmcui*&t53hj");
-        const user = await knex("users").where({ id });
+        const user = await prisma.users.findUnique({
+            where:{
+                id:parseInt(id)
+            }
+        })
         req.userData = user;
         next();
     } else {
-        res.send("token expired");
+        res.redirect("/login");
     }
 };
 

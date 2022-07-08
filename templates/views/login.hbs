@@ -4,28 +4,28 @@
 <head>
     {{>head_links}}
 
-<body>
+<body style="background: url('https://images.pexels.com/photos/1054218/pexels-photo-1054218.jpeg?auto=compress&cs=tinysrgb&w=1600') no-repeat; background-size: 100%;">
     {{>navbar}}
-    <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-        <div class="modal-content">
+    <div class="modal-dialog"  role="document" style="top:10rem; ">
+        <div class="modal-content" style=" background-color: rgba(245, 245, 245, 0.4);">
 
-            <div class="modal-header">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsIUuXBTnhTm24HWLK9rHvJ5dkZMElOSUFag&usqp=CAU"
-                    alt="avatar" class="rounded-circle img-responsive">
+            <div class="modal-header justify-content-center">
+                <img src="https://www.pngall.com/wp-content/uploads/12/Avatar-Profile-PNG-Photos.png"
+                    alt="avatar" class="rounded-circle img-responsive" style="width: 10rem;">
             </div>
-            <div class="modal-body text-center mb-1">
+            <div class="modal-body text-center mb-1" >
                 <h5 class="mt-1 mb-2">Welcome</h5>
                 <hr>
-                <form action="/checkUser" method="POST" onsubmit="sendData()">
-                    <div class="form-floating mb-2">
+                <form action="/checkUser" method="POST" onsubmit="sendData()" >
+                    <div class="form-floating mb-4">
                         <label class="visually-hidden" for="inlineFormInputGroupUsername">Email</label>
                         <div class="input-group">
                             <div class="input-group-text">@</div>
                             <input type="text" name="email" class="form-control" id="inlineFormInputGroupUsername"
-                                placeholder="email" required>
+                                placeholder="email" autofocus required>
                         </div>
                     </div>
-                    <div class="form-floating mb-2">
+                    <div class="form-floating mb-4">
                         <label class="visually-hidden" for="inlineFormInputGroupUsername">Password</label>
                         <div class="input-group">
                             <div class="input-group-text">#</div>
@@ -34,8 +34,8 @@
                         </div>
                     </div>
 
-                    <div class="text-center mt-3">
-                        <button type="submit" class="btn btn-light" id="inlineFormInputGroupUsername">Signup</button>
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary" id="inlineFormInputGroupUsername">Login</button>
 
                     </div>
                 </form>
@@ -43,11 +43,8 @@
 
         </div>
     </div>
+    {{>footer}}
 
 </body>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="../../public/js/inputHandler.js"></script>
 
 </html>
